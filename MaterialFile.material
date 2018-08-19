@@ -1,0 +1,88 @@
+vertex_program shader/vs glsl 
+{
+    source MaterialVp.glsl 
+
+    default_params
+    {
+        param_named_auto world_mat world_matrix
+        param_named_auto view_mat view_matrix
+        param_named_auto projection_mat projection_matrix
+    }
+}
+
+
+fragment_program shader/fs glsl 
+{
+    source MaterialFp.glsl 
+
+	default_params
+	{
+	}
+}
+
+
+material ObjectMaterial
+{
+    technique
+    {
+        pass
+        {
+            vertex_program_ref shader/vs
+            {
+            }
+
+            fragment_program_ref shader/fs
+            {
+            }
+        } 
+    }
+}
+
+
+material WhiteSurface
+{
+    technique
+    {
+        pass
+        {
+            ambient 0.5 0.5 0.5
+            diffuse 1.0 1.0 1.0
+			lighting off
+		}
+	}
+}
+
+
+material Simple
+ {
+   technique
+   {
+     pass
+     {
+       texture_unit
+       {
+         colour_op_ex source1 src_manual src_current 0.4 0.4 0.7
+       }
+     }
+   }
+}
+
+
+material TRed
+ {
+   technique
+   {
+     pass
+     {
+       scene_blend alpha_blend
+       depth_write off
+ 
+       texture_unit
+       {
+         colour_op_ex source1 src_manual src_current 1 0 0
+         alpha_op_ex source1 src_manual src_current 0.5
+       }
+     }
+   }
+}
+ 
